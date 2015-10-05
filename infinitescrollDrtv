@@ -1,0 +1,22 @@
+'use strict';
+
+angular.module('studiocdnWebApp')
+    .directive('infiniteScroll', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, elem, attrs) {
+                var visibleHeight = elem.height();
+                var diff = 100;
+
+                elem.scroll(function () {
+                    var scrollHeight = elem.prop('scrollHeight');
+                    var hiddenHeight = scrollHeight - visibleHeight;
+
+                    if (hiddenHeight - elem.scrollTop() <= diff) {
+                        // Load more packages
+                        scope.$apply(attrs.infiniteScroll);
+                    }
+                });
+            }
+        };
+    });
